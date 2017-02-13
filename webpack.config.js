@@ -19,7 +19,6 @@ module.exports = {
   output: {
     filename: 'application.js',
     path: path.join(__dirname, './build'),
-    publicPath: '/build/',
   },
   module: {
     loaders: [
