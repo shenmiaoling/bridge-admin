@@ -4,10 +4,14 @@ export default class Footer extends Component {
   render(){
     return (
       <div className="side">
-        <span className="side-info">用户管理</span>
-        <span className="side-info">用户管理</span>
-        <span className="side-info">用户管理</span>
-        <span className="side-info">用户管理</span>
+        <img className="logo" src="./images/logo.png"/>
+        <div className="head">小桥后台管理</div>
+        <div className="side-title">
+          <p className="side-info">用户管理</p>
+          <p className="side-info">项目管理</p>
+          <p className="side-info">用户管理</p>
+          <p className="side-info">用户管理</p>
+        </div>
       </div>
       )
   }

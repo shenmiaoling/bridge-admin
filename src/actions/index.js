@@ -5,10 +5,11 @@ function fetchLoginRequest(){
     type: 'FETCH_LOGIN_REQUEST'
   }
 }
-function fetchLoginSuccess(json){
+function fetchLoginSuccess(json,end){
   return {
     type: 'FETCH_LOGIN_SUCCESS',
-    LoginData: json
+    LoginData: json,
+    end: end
   }
 }
 function fetchLoginFailure(err){
@@ -26,14 +27,14 @@ export function fetchLogin(api,data) {
               'Content-Type': 'application/json'
             },
         body: JSON.stringify({
-              username: data.username,
+              admin: data.admin,
               password: data.password
             })
       }).then(response => response.json())
         .then(json =>{
           if(json){
-            dispatch(fetchLoginSuccess())
+            dispatch(fetchLoginSuccess(json,true))
           }
-        }).catch( err => fetchLoginFailure(err))
+        }).catch( err => fetchLoginFailure(err,false))
   }
 }

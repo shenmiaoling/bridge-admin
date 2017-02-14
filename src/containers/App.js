@@ -23,7 +23,7 @@ class App extends React.Component {
 }
 function mapStateToProps(state) {
   return {
-    login: state.login,
+    loginForm: state.loginForm,
     }
 }
 

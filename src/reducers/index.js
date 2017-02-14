@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux'
 import { routerReducer as routing } from 'react-router-redux'
-import login from './login'
+import loginForm from './login'
 import { modelReducer, formReducer } from 'react-redux-form'
 const rootReducer = combineReducers({
-  login,
+  loginForm,
   routing,
-  login: modelReducer('login', { username: '', password:''}),
-  loginForm: formReducer('login')
+  login: modelReducer('login', { admin: '', password:''}),
+  ReduxloginForm: formReducer('login')
 })
 export default rootReducer

@@ -1,17 +1,18 @@
 const InitialState = {
   status:'',
   data:'',
-  errMsg: ''
+  errMsg: '',
+  end: false
 }
 
-export default function login (state=InitialState, action) {
+export default function loginForm (state = InitialState, action) {
   switch(action.type) {
     case 'FETCH_LOGIN_REQUEST':
-      return Object.assigin({},state,{status: 'fetch_start'})
+      return Object.assign({},state,{status: 'fetch_start'})
     case 'FETCH_LOGIN_SUCCESS':
-      return Object.assigin({},state,{status: 'fetch_success',data:action.LoginData})
+      return Object.assign({},state,{status: 'fetch_success',data:action.LoginData,end: action.end})
     case 'FETCH_LOGIN_FAILURE':
-      return Object.assigin({},state,{status: 'fetch_failure',errMsg: action.err})
+      return Object.assign({},state,{status: 'fetch_failure',errMsg: action.err})
     default:
       return state
   }
