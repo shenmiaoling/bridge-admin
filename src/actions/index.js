@@ -32,7 +32,7 @@ export function fetchLogin(api,data) {
             })
       }).then(response => response.json())
         .then(json =>{
-          if(json){
+          if(!json.error){
             dispatch(fetchLoginSuccess(json,true))
           }
         }).catch( err => fetchLoginFailure(err,false))

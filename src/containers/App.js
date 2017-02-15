@@ -9,14 +9,15 @@ class App extends React.Component {
     super(props);
   }
   render(){
+    console.log(this.props.location.pathname);
     const { children,...OtherProps} = this.props
     return (
       <div>
-        <Topbar/>
+        {localStorage.getItem("token")||this.props.location.pathname==="/editproject"?<Topbar/>:null}
         {
           children && React.cloneElement(children, {...OtherProps})
         }
-        <Sidebar/>
+        {localStorage.getItem("token")?<Sidebar/>:null}
       </div>
       )
   }
