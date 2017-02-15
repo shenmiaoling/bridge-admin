@@ -9,15 +9,15 @@ class App extends React.Component {
     super(props);
   }
   render(){
-    console.log(this.props.location.pathname);
+    const id = localStorage.getItem("id")
     const { children,...OtherProps} = this.props
     return (
       <div>
-        {localStorage.getItem("token")||this.props.location.pathname==="/editproject"?<Topbar/>:null}
+        {localStorage.getItem("token") && this.props.location.pathname !== `/editproject/${id}` ? <Topbar/> : null}
         {
           children && React.cloneElement(children, {...OtherProps})
         }
-        {localStorage.getItem("token")?<Sidebar/>:null}
+        {localStorage.getItem("token") && this.props.location.pathname !== `/editproject/${id}` ? <Sidebar/> : null}
       </div>
       )
   }
@@ -25,6 +25,7 @@ class App extends React.Component {
 function mapStateToProps(state) {
   return {
     loginForm: state.loginForm,
+    project: state.project,
     }
 }
 

@@ -1,13 +1,27 @@
 import React from 'react'
+import {API_URL} from '../../../constant'
 import './style.styl'
 
 export default class User extends React.Component{
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this)
+  }
+  handleClick(){
+    const {fetchProject} = this.props.actions
+    const token = localStorage.getItem("token")
+    fetchProject(`${API_URL}/admin/project?token=${token}`)
+  }
   render(){
+    if (this.props.project.data._id) {
+      this.props.router.replace(`/editproject/${this.props.project.data._id}`)
+      localStorage.setItem("id",this.props.project.data._id)
+    }
     return (
       <div>
         <div className="search">
           <input className="search-input" placeholder="搜索"/>
-          <span className="iconfont icon-Add" onClick={()=>{this.props.router.replace("/editproject")}}></span>
+          <span className="iconfont icon-Add" onClick={this.handleClick}></span>
         </div>
         <div className="container">
           <table className="users">

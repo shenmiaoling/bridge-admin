@@ -1,5 +1,5 @@
 import { Field, Form, Control} from 'react-redux-form'
-import React, { PropTypes } from 'react'
+import React from 'react'
 import { connect } from 'react-redux';
 import { API_URL,PASS } from '../../../constant'
 import "./style.styl"

@@ -1,16 +1,14 @@
 import React from 'react'
+import { Field, Form, Control} from 'react-redux-form'
+import { connect } from 'react-redux';
+import BasicInfo from '../ProjectBasicInfo'
 import './style.styl'
-export default class User extends React.Component{
+export default class editProject extends React.Component{
   render(){
-    console.log(this.props);
     return (
-      <div>
-        <div className="search">
-          <input className="search-input" placeholder="搜索"/>
-          <span className="iconfont icon-Add" onClick={()=>{this.props.router.replace("/user")}}></span>
-        </div>
-        <div className="container">
-        </div>
+      <div className="project-detail">
+        <h3 className="basic-info">基本信息</h3>
+        <BasicInfo/>
       </div>
       )
   }
