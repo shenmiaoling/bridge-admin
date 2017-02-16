@@ -1,9 +1,5 @@
 import React from 'react'
-import { Field, Form, Control} from 'react-redux-form'
-import { connect } from 'react-redux';
 import './style.styl'
-import configureStore from '../../store'
-const store = configureStore()
 export default class BasicInfo extends React.Component{
   constructor(props) {
     super(props);
@@ -11,16 +7,11 @@ export default class BasicInfo extends React.Component{
     this.handleChane = this.handleChane.bind(this)
   }
   handleChane(event){
-    store.dispatch(this.props.actions.fetchProject())
-    console.log(store);
-    // console.log(event.target.value);
-    // console.log(event.target.name);
+    store.dispatch({type:'GET_PROJECT_DETAIL_INFO'})
     const basicinfo = this.state.basicinfo
     basicinfo[event.target.name] = event.target.value
-    const { fetchProject } = this.props.actions
-    // this.setState({
-    //   basicinfo: basicinfo
-    // },()=>{fetchProject('',this.state.basicinfo)})
+    const { ProjectInfo } = this.props.actions
+    ProjectInfo(basicinfo)
   }
   render(){
     return (
@@ -43,7 +34,7 @@ export default class BasicInfo extends React.Component{
           </div>
           <div className="basic-block">
             <label>开发周期</label>
-            <input className="basic-input" onChange={this.handleChane} name="cycle"/>
+            <input className="basic-input" onChange={this.handleChane} name="cycle" type="number"/>
           </div>
           <div className="basic-block">
             <label>项目进度</label>
@@ -59,4 +50,3 @@ export default class BasicInfo extends React.Component{
       )
   }
 }
-// export default connect( state => ({ basicInfo: state.project }))(BasicInfo);

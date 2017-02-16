@@ -6,7 +6,7 @@ export default class Footer extends Component {
     const activeStyle = {backgroundColor: '#191919'}
     return (
       <div className="side">
-        <img className="logo" src="./images/logo.png"/>
+        <img className="logo" src="/images/logo.png"/>
         <div className="head">小桥后台管理</div>
         <div className="side-title">
         <Link to="/user" activeStyle={activeStyle}>

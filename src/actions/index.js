@@ -59,7 +59,6 @@ function fetchProjectFailure(err){
   }
 }
 export function fetchProject(api,data) {
-  console.log(data);
   return dispatch => {
     dispatch(fetchProjectRequest())
       return fetch(api,{
@@ -78,5 +77,11 @@ export function fetchProject(api,data) {
             dispatch(fetchProjectSuccess(json,true))
           }
         }).catch( err => fetchProjectFailure(err,false))
+  }
+}
+export function ProjectInfo(data) {
+  return {
+    type:'GET_PROJECT_DETAIL_INFO',
+    data: data
   }
 }
