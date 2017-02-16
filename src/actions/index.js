@@ -32,8 +32,10 @@ export function fetchLogin(api,data) {
             })
       }).then(response => response.json())
         .then(json =>{
-          if(!json.error){
+          if(json.token){
+            localStorage.setItem("token",json.token)
             dispatch(fetchLoginSuccess(json,true))
+            location.replace('/user')
           }
         }).catch( err => fetchLoginFailure(err,false))
   }
@@ -57,6 +59,7 @@ function fetchProjectFailure(err){
   }
 }
 export function fetchProject(api,data) {
+  console.log(data);
   return dispatch => {
     dispatch(fetchProjectRequest())
       return fetch(api,{
@@ -65,12 +68,13 @@ export function fetchProject(api,data) {
               'Content-Type': 'application/json'
             },
         body: JSON.stringify({
-              // admin: data.admin,
-              // password: data.password
+              data
             })
       }).then(response => response.json())
         .then(json =>{
-          if(!json.error){
+          if(json._id){
+            localStorage.setItem("projectId",json._id)
+            location.replace(`/editproject/${json._id}`)
             dispatch(fetchProjectSuccess(json,true))
           }
         }).catch( err => fetchProjectFailure(err,false))

@@ -7,10 +7,6 @@ import "./style.styl"
   handleSubmit(val){
     const {fetchLogin} = this.props.actions
     fetchLogin(`${ API_URL }/login`,val)
-    if(this.props.loginForm.end){
-      localStorage.setItem("token",this.props.loginForm.data.token)
-      this.props.router.replace('/user')
-    }
   }
   render(){
     if (localStorage.getItem("token")) {

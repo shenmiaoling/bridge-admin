@@ -13,10 +13,10 @@ export default class User extends React.Component{
     fetchProject(`${API_URL}/admin/project?token=${token}`)
   }
   render(){
-    if (this.props.project.data._id) {
-      this.props.router.replace(`/editproject/${this.props.project.data._id}`)
-      localStorage.setItem("id",this.props.project.data._id)
-    }
+    // if (this.props.project.data._id) {
+    //   this.props.router.replace(`/editproject/${this.props.project.data._id}`)
+    //   localStorage.setItem("id",this.props.project.data._id)
+    // }
     return (
       <div>
         <div className="search">

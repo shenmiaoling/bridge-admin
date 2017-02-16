@@ -9,7 +9,7 @@ class App extends React.Component {
     super(props);
   }
   render(){
-    const id = localStorage.getItem("id")
+    const id = localStorage.getItem("projectId")
     const { children,...OtherProps} = this.props
     return (
       <div>
