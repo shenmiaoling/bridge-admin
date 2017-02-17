@@ -74,7 +74,7 @@ export function fetchProject(api,data) {
           if(json._id){
             localStorage.setItem("projectId",json._id)
             dispatch(fetchProjectSuccess(json,true))
-            location.replace(`/editproject/${json._id}`)
+            location.replace(`/project/editproject/${json._id}`)
           }else{
             localStorage.removeItem("token")
             location.replace('/')
@@ -101,20 +101,20 @@ function fetchProjectImagesFailure(err){
   }
 }
 export function fetchProjectImages(api,data) {
+  console.log(data)
   return dispatch => {
     dispatch(fetchProjectImagesRequest())
       return fetch(api,{
         method:'POST',
         body: data
-      }).then(response => response.json())
-        .then(json =>{
-          if(json._id){
-            dispatch(fetchProjectImagesSuccess(json,true))
+      }).then(response => {
+        if(response.ok){
+          dispatch(fetchProjectImagesSuccess(response,true))
           }else{
             localStorage.removeItem("token")
             location.replace('/')
           }
-        }).catch( err => fetchProjectImagesFailure(err,false))
+      }).catch( err => fetchProjectImagesFailure(err,false))
   }
 }
 function fetchProjectBasicInfoRequest(){
@@ -139,17 +139,21 @@ export function fetchProjectBasicInfo(api,data) {
   return dispatch => {
     dispatch(fetchProjectBasicInfoRequest())
       return fetch(api,{
-        method:'POST',
+        method:'PATCH',
         headers: {
               'Content-Type': 'application/json'
             },
         body: JSON.stringify({
-              data
+              title: data.title,
+              cycle: data.cycle,
+              startDate: data.startDate,
+              endDate : data.endDate,
+              version: data.version,
+              progression: data.progression
             })
       }).then(response => response.json())
         .then(json =>{
           if(json){
-            console.log(json);
             dispatch(fetchProjectBasicInfoSuccess(json,true))
           }else{
             localStorage.removeItem("token")

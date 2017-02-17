@@ -12,7 +12,7 @@ export default (
       <IndexRoute component={Login}/>
       <Route path="/user" component={User}/>
       <Route path="/project" component={Project}/>
-      <Route path="/editproject/:id" component={EditProject}/>
+      <Route path="/project/editproject/:id" component={EditProject}/>
       <Route path="*" component={NotFound} />
     </Route>
 )

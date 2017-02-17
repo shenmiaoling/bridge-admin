@@ -18,12 +18,13 @@ export default class BasicInfo extends React.Component{
   handleClick(){
     const { fetchProjectBasicInfo } = this.props.actions
     const token = localStorage.getItem("token")
-    fetchProjectBasicInfo(`${API_URL}/project?token=${token}`,this.state.basicinfo)
+    const id = localStorage.getItem("projectId")
+    fetchProjectBasicInfo(`${API_URL}/admin/project/${id}/change?token=${token}`,this.state.basicinfo)
   }
   render(){
-    console.log(this.props);
     return (
         <div>
+        <h3 className="basic-info">基本信息</h3>
           <div className="basic-block">
             <label>项目名称</label>
             <input className="basic-input" onChange={this.handleChange} name="title"/>
