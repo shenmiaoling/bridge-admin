@@ -25,7 +25,8 @@ function mapStateToProps(state) {
   return {
     loginForm: state.loginForm,
     project: state.project,
-    projectinfo: state.projectinfo
+    projectImages: state.projectImages,
+    projectBasicInfo: state.projectBasicInfo
     }
 }
 

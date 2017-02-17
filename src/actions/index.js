@@ -73,15 +73,88 @@ export function fetchProject(api,data) {
         .then(json =>{
           if(json._id){
             localStorage.setItem("projectId",json._id)
-            location.replace(`/editproject/${json._id}`)
             dispatch(fetchProjectSuccess(json,true))
+            location.replace(`/editproject/${json._id}`)
+          }else{
+            localStorage.removeItem("token")
+            location.replace('/')
           }
         }).catch( err => fetchProjectFailure(err,false))
   }
 }
-export function ProjectInfo(data) {
+function fetchProjectImagesRequest(){
   return {
-    type:'GET_PROJECT_DETAIL_INFO',
-    data: data
+    type: 'FETCH_PROJECT_IMAGES_REQUEST'
+  }
+}
+function fetchProjectImagesSuccess(json,end){
+  return {
+    type: 'FETCH_PROJECT_IMAGES_SUCCESS',
+    ProjectImages: json,
+    end: end
+  }
+}
+function fetchProjectImagesFailure(err){
+  return {
+    type:'FETCH_PROJECT_IMAGES_FAILURE',
+    err: err
+  }
+}
+export function fetchProjectImages(api,data) {
+  return dispatch => {
+    dispatch(fetchProjectImagesRequest())
+      return fetch(api,{
+        method:'POST',
+        body: data
+      }).then(response => response.json())
+        .then(json =>{
+          if(json._id){
+            dispatch(fetchProjectImagesSuccess(json,true))
+          }else{
+            localStorage.removeItem("token")
+            location.replace('/')
+          }
+        }).catch( err => fetchProjectImagesFailure(err,false))
+  }
+}
+function fetchProjectBasicInfoRequest(){
+  return {
+    type: 'FETCH_PROJECT_BASIC_INFO_REQUEST'
+  }
+}
+function fetchProjectBasicInfoSuccess(json,end){
+  return {
+    type: 'FETCH_PROJECT_BASIC_INFO_SUCCESS',
+    ProjectBasicInfo: json,
+    end: end
+  }
+}
+function fetchProjectBasicInfoFailure(err){
+  return {
+    type:'FETCH_PROJECT_BASIC_INFO_FAILURE',
+    err: err
+  }
+}
+export function fetchProjectBasicInfo(api,data) {
+  return dispatch => {
+    dispatch(fetchProjectBasicInfoRequest())
+      return fetch(api,{
+        method:'POST',
+        headers: {
+              'Content-Type': 'application/json'
+            },
+        body: JSON.stringify({
+              data
+            })
+      }).then(response => response.json())
+        .then(json =>{
+          if(json){
+            console.log(json);
+            dispatch(fetchProjectBasicInfoSuccess(json,true))
+          }else{
+            localStorage.removeItem("token")
+            location.replace('/')
+          }
+        }).catch( err => fetchProjectBasicInfoFailure(err,false))
   }
 }

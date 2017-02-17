@@ -1,6 +1,8 @@
 import React from 'react'
 import './style.styl'
-
+import { API_URL } from '../../../constant'
+import configureStore from '../../store'
+const store = configureStore()
 export default class ProjectUI extends React.Component{
 
   constructor(props) {
@@ -11,14 +13,19 @@ export default class ProjectUI extends React.Component{
 
   handleFileSelect(event) {
     var files = event.target.files;
-    // Loop through the FileList and render image files as thumbnails.
+    console.log(event.target.files[0]);
     for (var i = 0; i< files.length; i++) {
       var f = files[i]
+      var data = new FormData()
+      data.append('design', f)
+      const { fetchProjectImages } = this.props.actions
+      const id = localStorage.getItem("projectId")
+      const token = localStorage.getItem("token")
+      fetchProjectImages(`${API_URL}/admin/project/${id}/design?token=${token}`,data)
+
       var reader = new FileReader();
-      // Closure to capture the file information.
       reader.onload = (function(theFile) {
         return function(e) {
-          // Render thumbnail.
           var span = document.createElement('span');
           span.innerHTML =
           [
@@ -37,23 +44,13 @@ export default class ProjectUI extends React.Component{
     }
   }
   render(){
+          console.log(this.props.projectImages);
     return (
         <div>
           <div className="project-ui">
             <label>+</label>
             <input type="file" id="files" multiple onChange={this.handleFileSelect}/>
             <output id="list"></output>
-{/*            <div>
-                <Dropzone ref={(node) => { this.dropzone = node; }} onDrop={this.onDrop} >
-                    <button type="button" onClick={this.onOpenClick}>
-                    Open Dropzone
-                </button>
-                </Dropzone>
-                {this.state.files.length > 0 ? <div>
-                <h2>Uploading {this.state.files.length} files...</h2>
-                <div>{this.state.files.map((file,index) => <img key={index} src={file.preview} /> )}</div>
-                </div> : null}*/}
-{/*            </div>*/}
           </div>
         </div>
       )
