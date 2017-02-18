@@ -20,6 +20,7 @@ export default class BasicInfo extends React.Component{
           <div className="basic-block">
           <button className="login-btn" onClick={this.handleClick}>保存</button>
             <button className="cancel">取消</button>
+            </div>
         </div>
       )
   }

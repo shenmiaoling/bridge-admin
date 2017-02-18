@@ -43,14 +43,13 @@ export default class ProjectUI extends React.Component{
   }
   render(){
     return (
-        <div>
-          <div className="project-ui">
-            <h3 className="basic-info">UI设计图</h3>
-            <input id="UI" type="file" id="files" multiple onChange={this.handleFileSelect}/>
-            <output id="list"></output>
-          </div>
-          <button className="login-btn" onClick={this.handleClick}>保存</button>
-            <button className="cancel">取消</button>
+        <div className="container">
+            <div className="edit-title">编辑修改</div>
+                <h3 className="basic-info">UI设计图</h3>
+                <input id="UI" type="file" id="files" multiple onChange={this.handleFileSelect}/>
+                <output id="list"></output>
+                <button className="cancel">上一步</button>
+                <button className="login-btn" onClick={this.handleClick}>下一步</button>
         </div>
       )
   }

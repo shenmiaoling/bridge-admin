@@ -16,10 +16,9 @@ export default class BasicInfo extends React.Component{
     })
   }
   handleClick(){
-    const { fetchProjectBasicInfo } = this.props.actions
+    const { fetchProject } = this.props.actions
     const token = localStorage.getItem("token")
-    const id = localStorage.getItem("projectId")
-    fetchProjectBasicInfo(`${API_URL}/admin/project/${id}/change?token=${token}`,this.state.basicinfo)
+    fetchProject(`${API_URL}/admin/project?token=${token}`,this.state.basicinfo)
   }
   render(){
     return (
@@ -55,8 +54,8 @@ export default class BasicInfo extends React.Component{
               <option value="finish">已完结</option>
             </select>
           </div>
-          <button className="login-btn" onClick={this.handleClick}>保存</button>
-            <button className="cancel">取消</button>
+          <button className="cancel">取消</button>
+          <button className="login-btn" onClick={this.handleClick}>下一步</button>
         </div>
       )
   }
