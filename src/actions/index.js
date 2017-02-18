@@ -66,18 +66,10 @@ export function fetchProject(api,data) {
         headers: {
               'Content-Type': 'application/json'
             },
-        body: JSON.stringify({
-                title: data.title,
-                cycle: data.cycle,
-                startDate: data.startDate,
-                endDate : data.endDate,
-                version: data.version,
-                progression: data.progression
-            })
+        body: JSON.stringify(data)
       }).then(response => response.json())
         .then(json =>{
           if(json._id){
-            console.log(json)
             localStorage.setItem("projectId",json._id)
             dispatch(fetchProjectSuccess(json,true))
             browserHistory.push(`/project/${json._id}/uploadui`)
@@ -107,64 +99,55 @@ function fetchProjectImagesFailure(err){
   }
 }
 export function fetchProjectImages(api,data) {
-  console.log(data)
   return dispatch => {
     dispatch(fetchProjectImagesRequest())
       return fetch(api,{
         method:'POST',
         body: data
-      }).then(response => {
-        if(response.ok){
-          dispatch(fetchProjectImagesSuccess(response,true))
-          }else{
-            localStorage.removeItem("token")
-            browserHistory.push('/login')
+      }).then(response => response.json())
+        .then(json => {
+          if(json._id){
+            dispatch(fetchProjectImagesSuccess(json,true))
+            }else{
+              localStorage.removeItem("token")
+              browserHistory.push('/login')
           }
-      }).catch( err => fetchProjectImagesFailure(err,false))
+        }
+        ).catch( err => fetchProjectImagesFailure(err,false))
   }
 }
-function fetchProjectBasicInfoRequest(){
+function deleteProjectUIRequest(){
   return {
-    type: 'FETCH_PROJECT_BASIC_INFO_REQUEST'
+    type: 'DELETE_PROJECT_UI_REQUEST'
   }
 }
-function fetchProjectBasicInfoSuccess(json,end){
+function deleteProjectUISuccess(json,end){
   return {
-    type: 'FETCH_PROJECT_BASIC_INFO_SUCCESS',
-    ProjectBasicInfo: json,
+    type: 'DELETE_PROJECT_UI_SUCCESS',
+    DeleteResult: json,
     end: end
   }
 }
-function fetchProjectBasicInfoFailure(err){
+function deleteProjectUIFailure(err){
   return {
-    type:'FETCH_PROJECT_BASIC_INFO_FAILURE',
+    type:'DELETE_PROJECT_UI_FAILURE',
     err: err
   }
 }
-export function fetchProjectBasicInfo(api,data) {
+export function deleteProjectUI(api) {
   return dispatch => {
-    dispatch(fetchProjectBasicInfoRequest())
+    dispatch(deleteProjectUIRequest())
       return fetch(api,{
-        method:'PATCH',
-        headers: {
-              'Content-Type': 'application/json'
-            },
-        body: JSON.stringify({
-              title: data.title,
-              cycle: data.cycle,
-              startDate: data.startDate,
-              endDate : data.endDate,
-              version: data.version,
-              progression: data.progression
-            })
+        method:'DELETE'
       }).then(response => response.json())
         .then(json =>{
-          if(json){
-            dispatch(fetchProjectBasicInfoSuccess(json,true))
+          console.log(json)
+          if(!json.error){
+            dispatch(deleteProjectUISuccess(json,true))
           }else{
             localStorage.removeItem("token")
             browserHistory.push('/login')
           }
-        }).catch( err => fetchProjectBasicInfoFailure(err,false))
+        }).catch( err => deleteProjectUIFailure(err,false))
   }
 }
