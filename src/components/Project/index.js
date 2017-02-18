@@ -8,9 +8,10 @@ export default class User extends React.Component{
     this.handleClick = this.handleClick.bind(this)
   }
   handleClick(){
-    const {fetchProject} = this.props.actions
-    const token = localStorage.getItem("token")
-    fetchProject(`${API_URL}/admin/project?token=${token}`)
+    this.props.router.push('/project/new')
+    // const {fetchProject} = this.props.actions
+    // const token = localStorage.getItem("token")
+    // fetchProject(`${API_URL}/admin/project?token=${token}`)
   }
   render(){
     return (

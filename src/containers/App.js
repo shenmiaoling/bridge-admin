@@ -8,6 +8,11 @@ class App extends React.Component {
   constructor(props) {
     super(props);
   }
+  componentDidMount() {
+    if(!localStorage.getItem("token")){
+      this.props.router.replace('/login')
+    }
+  }
   render(){
     const { children,...OtherProps} = this.props
     return (

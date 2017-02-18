@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch'
-
+import { browserHistory } from 'react-router'
 function fetchLoginRequest(){
   return {
     type: 'FETCH_LOGIN_REQUEST'
@@ -35,7 +35,7 @@ export function fetchLogin(api,data) {
           if(json.token){
             localStorage.setItem("token",json.token)
             dispatch(fetchLoginSuccess(json,true))
-            location.replace('/user')
+            browserHistory.replace('/')
           }
         }).catch( err => fetchLoginFailure(err,false))
   }
@@ -67,17 +67,23 @@ export function fetchProject(api,data) {
               'Content-Type': 'application/json'
             },
         body: JSON.stringify({
-              data
+                title: data.title,
+                cycle: data.cycle,
+                startDate: data.startDate,
+                endDate : data.endDate,
+                version: data.version,
+                progression: data.progression
             })
       }).then(response => response.json())
         .then(json =>{
           if(json._id){
+            console.log(json)
             localStorage.setItem("projectId",json._id)
             dispatch(fetchProjectSuccess(json,true))
-            location.replace(`/project/editproject/${json._id}`)
+            browserHistory.push(`/project/${json._id}/uploadui`)
           }else{
             localStorage.removeItem("token")
-            location.replace('/')
+            browserHistory.push('/login')
           }
         }).catch( err => fetchProjectFailure(err,false))
   }
@@ -112,7 +118,7 @@ export function fetchProjectImages(api,data) {
           dispatch(fetchProjectImagesSuccess(response,true))
           }else{
             localStorage.removeItem("token")
-            location.replace('/')
+            browserHistory.push('/login')
           }
       }).catch( err => fetchProjectImagesFailure(err,false))
   }
@@ -157,7 +163,7 @@ export function fetchProjectBasicInfo(api,data) {
             dispatch(fetchProjectBasicInfoSuccess(json,true))
           }else{
             localStorage.removeItem("token")
-            location.replace('/')
+            browserHistory.push('/login')
           }
         }).catch( err => fetchProjectBasicInfoFailure(err,false))
   }
