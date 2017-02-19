@@ -14,12 +14,8 @@ export default class ProjectUI extends React.Component{
     this.handleDelete = this.handleDelete.bind(this)
   }
   handleClick(){
-    // var data = new FormData()
-    // data.append('design', this.state.files)
-    // const { fetchProjectImages } = this.props.actions
-    // const id = localStorage.getItem("projectId")
-    // const token = localStorage.getItem("token")
-    // fetchProjectImages(`${API_URL}/admin/project/${id}/design?token=${token}`,data)
+    const id = this.props.params.id
+    this.props.router.push(`/project/${id}/schedule`)
   }
   handleFileSelect(event) {
     var files = event.target.files;
@@ -42,15 +38,14 @@ export default class ProjectUI extends React.Component{
     reader.readAsDataURL(file)
   }
   handleDelete(ui_id){
-    console.log(ui_id);
     const { deleteProjectUI } = this.props.actions
     const id = this.props.params.id
     const token = localStorage.getItem("token")
-    // deleteProjectUI(`${API_URL}/admin/project/${id}/design/${ui_id}?token=${token}`)
-    store.dispatch({type:'DELETE_PROJECT_UI_SUCCESS',id:ui_id})
+    deleteProjectUI(`${API_URL}/admin/project/${id}/design/${ui_id}?token=${token}`)
+
+    this.props.dispatch({type:'DELETE_PROJECT_UI_SUCCESS',id:ui_id})
   }
   render(){
-    console.log(this.props);
     return (
         <div className="container">
           <div className="project-detail">

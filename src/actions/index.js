@@ -141,7 +141,6 @@ export function deleteProjectUI(api) {
         method:'DELETE'
       }).then(response => response.json())
         .then(json =>{
-          console.log(json)
           if(!json.error){
             dispatch(deleteProjectUISuccess(json,true))
           }else{

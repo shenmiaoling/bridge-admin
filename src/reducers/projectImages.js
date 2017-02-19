@@ -16,7 +16,7 @@ export default function projectImages (state = InitialState, action) {
     case 'DELETE_PROJECT_UI_REQUEST':
       return Object.assign({},state,{status: 'fetch_start'})
     case 'DELETE_PROJECT_UI_SUCCESS':
-      return Object.assign({},state,{status: 'fetch_success',data:state.data.filter((item)=>{return item._id == action.id}),end: action.end})
+      return Object.assign({},state,{status: 'fetch_success',data:state.data.filter((item)=>{return item._id !== action.id}),end: action.end})
     case 'DELETE_PROJECT_UI_FAILURE':
       return Object.assign({},state,{status: 'fetch_failure',errMsg: action.err})
     default:
