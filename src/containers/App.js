@@ -31,7 +31,9 @@ function mapStateToProps(state) {
     loginForm: state.loginForm,
     project: state.project,
     projectImages: state.projectImages,
-    projectSchedule: state.projectSchedule
+    projectSchedule: state.projectSchedule,
+    projectTask: state.projectTask,
+    projectDocument: state.projectDocument
     }
 }
 

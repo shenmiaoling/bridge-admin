@@ -5,6 +5,7 @@ import Immutable from 'immutable'
 import EditorPlugin from 'draft-js-plugins-editor'
 // import superagent from 'superagent'
 import {API_URL} from '../../../constant'
+import {stateToHTML} from 'draft-js-export-html'
 require('./style.styl')
   const {
     CompositeDecorator,
@@ -16,6 +17,7 @@ require('./style.styl')
     RichUtils,
     DefaultDraftBlockRenderMap,
     convertToRaw,
+
   } = Draft;
   const {Map} = Immutable;
   class MyEditor extends React.Component {
@@ -43,6 +45,7 @@ require('./style.styl')
       this.addImage = this._addImage.bind(this);
       this.confirmMedia = this._confirmMedia.bind(this);
       this.handleKeyCommand = this._handleKeyCommand.bind(this);
+      this.handleGoback = this.handleGoback.bind(this);
       this.handleClick = this.handleClick.bind(this);
       this.toggleBlockType = (type) => this._toggleBlockType(type);
       this.toggleInlineStyle = (style) => this._toggleInlineStyle(style);
@@ -116,7 +119,7 @@ require('./style.styl')
         editorState: AtomicBlockUtils.insertAtomicBlock(
           editorState,
           entityKey,
-          ' '
+          ''
         ),
         showURLInput: false,
         urlValue: '',
@@ -143,7 +146,14 @@ require('./style.styl')
       // })
     }
     handleClick(){
-      console.log(this.state.editorState.getCurrentInlineStyle());
+      const editorState = { writer:stateToHTML(this.state.editorState.getCurrentContent())}
+      const id = this.props.params.id
+      const token = localStorage.getItem("token")
+      const {fetchProjectDocument} = this.props.actions
+      fetchProjectDocument(`${API_URL}/admin/project/${id}/doc?token=${token}`,editorState)
+    }
+    handleGoback(){
+      this.props.router.goBack()
     }
     render() {
       const {editorState} = this.state;
@@ -214,7 +224,7 @@ require('./style.styl')
               </div>
             </div>
             <div>
-              <button className="login-btn" >上一步</button>
+              <button className="login-btn" onClick={this.handleGoback}>上一步</button>
               <button className="login-btn" onClick={this.handleClick}>下一步</button>
             </div>
           </div>

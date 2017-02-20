@@ -35,10 +35,10 @@ export function fetchProjectSchedule(api,data) {
       }).then(response => response.json())
         .then(json =>{
             dispatch(fetchProjectScheduleSuccess(json,true))
-            browserHistory.push(`/project/${json.projectId}/document`)
+            browserHistory.push(`/project/${json.projectId}/task`)
         }).catch( err => {
-          // localStorage.removeItem("token")
-          // browserHistory.push('/login')
+          localStorage.removeItem("token")
+          browserHistory.push('/login')
           fetchProjectScheduleFailure(err,false)
         })
   }

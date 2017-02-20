@@ -1,6 +1,8 @@
 import fetch from 'isomorphic-fetch'
 import { browserHistory } from 'react-router'
-import {fetchProjectSchedule} from './fetchSchedule'
+import {fetchProjectSchedule} from './fetchProjectSchedule'
+import {fetchProjectTask,fetchProjectTaskBar} from './fetchProjectTask'
+import {fetchProjectDocument} from './fetchProjectDocument'
 function fetchLoginRequest(){
   return {
     type: 'FETCH_LOGIN_REQUEST'
@@ -70,7 +72,6 @@ function fetchProject(api,data) {
         body: JSON.stringify(data)
       }).then(response => response.json())
         .then(json =>{
-            localStorage.setItem("projectId",json._id)
             dispatch(fetchProjectSuccess(json,true))
             browserHistory.push(`/project/${json._id}/uploadui`)
         }).catch( err => {
@@ -148,4 +149,13 @@ function deleteProjectUI(api,id) {
         })
   }
 }
-export { fetchProjectSchedule,fetchLogin,fetchProject,fetchProjectImages,deleteProjectUI }
+export {
+  fetchProjectSchedule,
+  fetchLogin,
+  fetchProject,
+  fetchProjectImages,
+  deleteProjectUI,
+  fetchProjectTaskBar,
+  fetchProjectTask,
+  fetchProjectDocument
+  }
