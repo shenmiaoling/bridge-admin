@@ -6,6 +6,7 @@ import User from './src/components/User'
 import Project from './src/components/Project'
 import AddUI from './src/components/ProjectUI'
 import ProjectTime from './src/components/ProjectTime'
+import ProjectTask from './src/components/ProjectTask'
 import ProjectDocument from './src/components/ProjectDocument'
 import CreateProject from './src/components/CreateProject'
 import EditProject from './src/components/EditProject'
@@ -19,6 +20,7 @@ export default (
       <Route path="/project/new" component={CreateProject}/>
       <Route path="/project/:id/uploadui" component={AddUI}/>
       <Route path="/project/:id/schedule" component={ProjectTime}/>
+      <Route path="/project/:id/task" component={ProjectTask}/>
       <Route path="/project/:id/document" component={ProjectDocument}/>
 {/*      <Route path="/project/:id/schedule" component={AddSchedule}/>
       <Route path="/project/:id/task" component={AddTask}/>

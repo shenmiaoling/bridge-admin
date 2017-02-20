@@ -1,3 +1,4 @@
+import { browserHistory } from 'react-router'
 function fetchProjectImagesRequest(){
   return {
     type: 'FETCH_PROJECT_IMAGES_REQUEST'
@@ -16,7 +17,7 @@ function fetchProjectImagesFailure(err){
     err: err
   }
 }
-function fetchProjectImages(api,data) {
+export function fetchProjectImages(api,data) {
   return dispatch => {
     dispatch(fetchProjectImagesRequest())
       return fetch(api,{

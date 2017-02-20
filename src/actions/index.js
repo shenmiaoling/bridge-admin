@@ -4,11 +4,19 @@ import {fetchProjectSchedule} from './fetchProjectSchedule'
 import {fetchLogin} from './fetchLogin'
 import {fetchProject} from './fetchProject'
 import {fetchProjectImages} from './fetchProjectImages'
+import {deleteProjectUI} from './deleteProjectUI'
+import {fetchProjectTask,fetchProjectTaskBar,ChangeProjectTaskStatus} from './fetchProjectTask'
+import {fetchProjectDocument} from './fetchProjectDocument'
 
-export { 
+export {
   fetchProjectSchedule,
   fetchLogin,
   fetchProject,
   fetchProjectImages,
-  deleteProjectUI 
+  deleteProjectUI,
+  fetchProjectTaskBar,
+  fetchProjectTask,
+  ChangeProjectTaskStatus,
+  fetchProjectDocument
   }
+

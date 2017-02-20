@@ -1,3 +1,4 @@
+import { browserHistory } from 'react-router'
 function fetchLoginRequest(){
   return {
     type: 'FETCH_LOGIN_REQUEST'
@@ -16,7 +17,7 @@ function fetchLoginFailure(err){
     err: err
   }
 }
-function fetchLogin(api,data) {
+export function fetchLogin(api,data) {
   return dispatch => {
     dispatch(fetchLoginRequest())
       return fetch(api,{

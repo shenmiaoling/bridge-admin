@@ -1,3 +1,4 @@
+import { browserHistory } from 'react-router'
 function fetchProjectRequest(){
   return {
     type: 'FETCH_PROJECT_REQUEST'
@@ -16,7 +17,7 @@ function fetchProjectFailure(err){
     err: err
   }
 }
-function fetchProject(api,data) {
+export function fetchProject(api,data) {
   return dispatch => {
     dispatch(fetchProjectRequest())
       return fetch(api,{
