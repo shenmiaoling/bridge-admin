@@ -41,9 +41,7 @@ export default class ProjectUI extends React.Component{
     const { deleteProjectUI } = this.props.actions
     const id = this.props.params.id
     const token = localStorage.getItem("token")
-    deleteProjectUI(`${API_URL}/admin/project/${id}/design/${ui_id}?token=${token}`)
-
-    this.props.dispatch({type:'DELETE_PROJECT_UI_SUCCESS',id:ui_id})
+    deleteProjectUI(`${API_URL}/admin/project/${id}/design/${ui_id}?token=${token}`,ui_id)
   }
   render(){
     return (

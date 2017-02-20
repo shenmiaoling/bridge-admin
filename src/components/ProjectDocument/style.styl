@@ -1,0 +1,161 @@
+.RichEditor-root {
+  background-color: #eef1f5;
+  border: 1px solid #ddd;
+  font-family: 'Georgia', serif;
+  font-size: 14px;
+  padding: 15px;
+/*  width: 83.5%;*/
+  display: block;
+  margin: 0 auto;
+/*  margin-left: 6.25rem*/
+  position: relative;
+}
+.icon-listol {
+  font-size: 1.3636rem!important;
+}
+.icon-liebiao {
+  font-size: 1.3636rem!important;
+}
+.icon-zuoyinhao {
+  font-size: 1.3636rem!important;
+}
+.icon-daima {
+  font-size: 1.3636rem!important;
+}
+.icon-jiacu {
+  font-size: 1.3636rem!important;
+}
+.icon-tupian {
+  font-size: 1.3636rem!important;
+  color: #7daacd!important;
+}
+.RichEditor-editor {
+  border-top: 1px solid #ddd;
+  cursor: text;
+  font-size: 16px;
+/*  margin-top: 10px;*/
+}
+
+.RichEditor-editor .public-DraftEditorPlaceholder-root,
+.RichEditor-editor .public-DraftEditor-content {
+  margin: 0 -15px -15px;
+  padding: 15px;
+}
+.RichEditor-editor .public-DraftEditor-content {
+  min-height: 100px;
+}
+
+.RichEditor-hidePlaceholder .public-DraftEditorPlaceholder-root {
+  display: none;
+}
+
+.RichEditor-editor .RichEditor-blockquote {
+  border-left: 5px solid #eee;
+  color: #666;
+  font-family: 'Hoefler Text', 'Georgia', serif;
+  font-style: italic;
+  margin: 16px 0;
+  padding: 10px 20px;
+}
+
+.RichEditor-editor .public-DraftStyleDefault-pre {
+  background-color: rgba(0, 0, 0, 0.05);
+  font-family: 'Inconsolata', 'Menlo', 'Consolas', monospace;
+  font-size: 16px;
+  padding: 20px;
+}
+
+.RichEditor-controls {
+  font-family: 'Helvetica', sans-serif;
+  font-size: 14px;
+  margin-bottom: 5px;
+  user-select: none;
+  display: inline-block;
+}
+
+.RichEditor-styleButton {
+/*  color: #999;
+  cursor: pointer;*/
+  margin-right: 3rem;
+  padding: 2px 0;
+  display: inline-block;
+  color: #7daacd;
+}
+.add-image {
+  display: inline-block;
+  cursor: pointer;
+}
+.icon-lianjie {
+  font-size: 1.3636rem!important;
+  color: #7daacd!important;
+}
+.RichEditor-activeButton {
+  color: #0f3a5a;
+}
+.RichEditor-controls ::after
+{
+  content:"";
+  font-size: 16px;
+  padding: 2px 10px;
+  position: absolute;
+  background-color: white;
+  color:#0f3a5a;
+  box-shadow:0 2px 4px 0 rgba(0, 0, 0, 0.5);
+  top:45px;
+  margin-left:-35px;
+  opacity: 0
+}
+.icon-jiacu:hover:after{
+  content: "加粗";
+  font-size: 14px;
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+.icon-listol:hover:after{
+  content: "有序列表";
+  font-size: 14px;
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+.icon-liebiao:hover:after{
+  content: "无序列表";
+  font-size: 14px;
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+.icon-zuoyinhao:hover:after{
+  content: "引用";
+  font-size: 14px;
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+.icon-daima:hover:after{
+  content: "代码块";
+  font-size: 14px;
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+.icon-lianjie:hover:after{
+  content: "链接";
+  font-size: 14px;
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+.icon-tupian:hover:after{
+  content: "图片";
+  font-size: 14px;
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+/*.icon-jiacu li:hover:after
+{
+    position:absolute;
+    top: 0;
+    right:-10px;
+    bottom:0;
+
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid #303030;
+    content: "";
+}*/

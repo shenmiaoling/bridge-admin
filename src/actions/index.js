@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch'
 import { browserHistory } from 'react-router'
+import {fetchProjectSchedule} from './fetchSchedule'
 function fetchLoginRequest(){
   return {
     type: 'FETCH_LOGIN_REQUEST'
@@ -18,7 +19,7 @@ function fetchLoginFailure(err){
     err: err
   }
 }
-export function fetchLogin(api,data) {
+function fetchLogin(api,data) {
   return dispatch => {
     dispatch(fetchLoginRequest())
       return fetch(api,{
@@ -58,7 +59,7 @@ function fetchProjectFailure(err){
     err: err
   }
 }
-export function fetchProject(api,data) {
+function fetchProject(api,data) {
   return dispatch => {
     dispatch(fetchProjectRequest())
       return fetch(api,{
@@ -69,15 +70,14 @@ export function fetchProject(api,data) {
         body: JSON.stringify(data)
       }).then(response => response.json())
         .then(json =>{
-          if(json._id){
             localStorage.setItem("projectId",json._id)
             dispatch(fetchProjectSuccess(json,true))
             browserHistory.push(`/project/${json._id}/uploadui`)
-          }else{
-            localStorage.removeItem("token")
-            browserHistory.push('/login')
-          }
-        }).catch( err => fetchProjectFailure(err,false))
+        }).catch( err => {
+          localStorage.removeItem("token")
+          browserHistory.push('/login')
+          fetchProjectFailure(err,false)
+        })
   }
 }
 function fetchProjectImagesRequest(){
@@ -98,7 +98,7 @@ function fetchProjectImagesFailure(err){
     err: err
   }
 }
-export function fetchProjectImages(api,data) {
+function fetchProjectImages(api,data) {
   return dispatch => {
     dispatch(fetchProjectImagesRequest())
       return fetch(api,{
@@ -121,10 +121,10 @@ function deleteProjectUIRequest(){
     type: 'DELETE_PROJECT_UI_REQUEST'
   }
 }
-function deleteProjectUISuccess(json,end){
+function deleteProjectUISuccess(id,end){
   return {
     type: 'DELETE_PROJECT_UI_SUCCESS',
-    DeleteResult: json,
+    DeleteResult: id,
     end: end
   }
 }
@@ -134,19 +134,18 @@ function deleteProjectUIFailure(err){
     err: err
   }
 }
-export function deleteProjectUI(api) {
+function deleteProjectUI(api,id) {
   return dispatch => {
     dispatch(deleteProjectUIRequest())
       return fetch(api,{
         method:'DELETE'
-      }).then(response => response.json())
-        .then(json =>{
-          if(!json.error){
-            dispatch(deleteProjectUISuccess(json,true))
-          }else{
-            localStorage.removeItem("token")
-            browserHistory.push('/login')
-          }
-        }).catch( err => deleteProjectUIFailure(err,false))
+      }).then(() =>{
+            dispatch(deleteProjectUISuccess(id,true))
+        }).catch( err => {
+          deleteProjectUIFailure(err,false)
+          localStorage.removeItem("token")
+          browserHistory.push('/login')
+        })
   }
 }
+export { fetchProjectSchedule,fetchLogin,fetchProject,fetchProjectImages,deleteProjectUI }
