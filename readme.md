@@ -14,9 +14,9 @@
 // node版本 v4.4.5
 
 ```
-git clone https://github.com/shenmiaoling/xiaoqiao-admin.git
+git clone https://github.com/shenmiaoling/bridge-admin.git
 
-cd xiaoqiao-admin && npm install
+cd bridge-admin && npm install
 
 webpack -w
 
