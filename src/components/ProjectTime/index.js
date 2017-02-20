@@ -26,7 +26,6 @@ export default class BasicInfo extends React.Component{
           <div className="project-detail">
             <div className="edit-title">编辑修改</div>
             <h3 className="basic-info">时间阶段</h3>
-            <div className="basic-block">
               <div className="basic-block">
                 <label>待处理</label>
                 <input className="basic-input" onChange={this.handleChange} type="date" name="time1"/>
@@ -54,8 +53,6 @@ export default class BasicInfo extends React.Component{
                 <button className="login-btn" >上一步</button>
                 <button className="login-btn" onClick={this.handleClick}>下一步</button>
               </div>
-
-            </div>
           </div>
         </div>
       )
