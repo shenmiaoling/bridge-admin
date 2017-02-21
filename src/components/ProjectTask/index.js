@@ -7,7 +7,7 @@ export default class ProjectUI extends React.Component{
 
   constructor(props) {
     super(props);
-    this.state = { part: [false,false,false],barid:'',completion:false }
+    this.state = { part: [false,false,false],barid:'',developer:false }
     this.handleClick = this.handleClick.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
     this.handleAddButton = this.handleAddButton.bind(this)
@@ -15,6 +15,11 @@ export default class ProjectUI extends React.Component{
     this.handleStatus = this.handleStatus.bind(this)
     this.handleGoback = this.handleGoback.bind(this)
     this.handleDeveloper = this.handleDeveloper.bind(this)
+    this.handleAddDeveloper = this.handleAddDeveloper.bind(this)
+  }
+  componentDidMount() {
+    const {fetchDeveloper} = this.props.actions
+    fetchDeveloper(`${API_URL}/admin/developer?token=${token}`)
   }
   handleClick(){
     const id = this.props.params.id
@@ -57,11 +62,17 @@ export default class ProjectUI extends React.Component{
     ChangeProjectTaskStatus(`${API_URL}/admin/project/schedule/task/${item._id}?token=${token}`,data)
   }
   handleDeveloper(){
-    const {fetchDeveloper} = this.props.actions
-    fetchDeveloper(`${API_URL}/admin/developer?token=${token}`)
+    this.setState({
+      developer: !this.state.developer
+    })
+  }
+  handleAddDeveloper(item,part){
+    console.log(this.props);
+    const {fetchProjectDeveloper} = this.props.actions
+    const id = this.props.params.id
+    fetchProjectDeveloper(`${API_URL}/admin/project/${id}/${part}?developer=${item._id}&token=${token}`,item._id)
   }
   render(){
-    // console.log(this.props);
     const ChangeResult = this.props.projectTask
     return (
         <div className="container">
@@ -82,6 +93,16 @@ export default class ProjectUI extends React.Component{
                   </div>
                 })
               }
+              <div className={true?"developer":"hide-developer"}>
+                {
+                  this.props.projectTask.Developer.map((item,index)=>{
+                    return <div key={index} onClick={this.handleAddDeveloper.bind(this,item,"frontEnd")}>
+                      <img src={item.wxInfo.avatarUrl} className="developer-avatar"/>
+                      <div className="developer-name">{item.wxInfo.nickName}</div>
+                    </div>
+                  })
+                }
+              </div>
             </div>
             <div className="basic-block">
               <label>后台管理:</label>

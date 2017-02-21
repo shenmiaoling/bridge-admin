@@ -175,3 +175,37 @@ export function fetchDeveloper(api) {
         })
   }
 }
+function fetchProjectDeveloperRequest(){
+  return {
+    type: 'FETCH_PROJECT_DEVELOPER_REQUEST'
+  }
+}
+function fetchProjectDeveloperSuccess(json,id,end){
+  return {
+    type: 'FETCH_PROJECT_DEVELOPER_SUCCESS',
+    AddResult: json,
+    id:id,
+    end: end
+  }
+}
+function fetchProjectDeveloperFailure(err){
+  return {
+    type:'FETCH_PROJECT_DEVELOPER_FAILURE',
+    err: err
+  }
+}
+export function fetchProjectDeveloper(api,id) {
+  return dispatch => {
+    dispatch(fetchProjectDeveloperRequest())
+      return fetch(api,{
+        method:'PATCH'
+      }).then(response => response.json())
+        .then(json =>{
+          dispatch(fetchProjectDeveloperSuccess(json.developers,id,true))
+        }).catch( err => {
+          localStorage.removeItem("token")
+          browserHistory.push('/login')
+          fetchProjectDeveloperFailure(err,false)
+        })
+  }
+}

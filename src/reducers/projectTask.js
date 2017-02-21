@@ -3,6 +3,7 @@ const InitialState = {
   data:[],
   taskbar:{},
   ChangeResult:'',
+  AddResult:'',
   errMsg: '',
   backStage:[],
   Developer:[],
@@ -48,6 +49,21 @@ export default function projectTask (state = InitialState, action) {
     case 'FETCH_DEVELOPER_SUCCESS':
       return Object.assign({},state,{status: 'fetch_success',Developer:action.Developer,end: action.end})
     case 'FETCH_DEVELOPER_FAILURE':
+      return Object.assign({},state,{status: 'fetch_failure',errMsg: action.err})
+    case 'FETCH_PROJECT_DEVELOPER_REQUEST':
+      return Object.assign({},state,{status: 'fetch_start'})
+    case 'FETCH_PROJECT_DEVELOPER_SUCCESS':
+      return Object.assign({},state,{status: 'fetch_success',AddResult:action.AddResult,
+        Developer:state.Developer.map(
+          (item)=>{
+            if(item._id==action.id){
+              return action.AddResult
+            }else{
+              return item
+            }
+          }),
+        end: action.end})
+    case 'FETCH_PROJECT_DEVELOPER_FAILURE':
       return Object.assign({},state,{status: 'fetch_failure',errMsg: action.err})
     default:
       return state

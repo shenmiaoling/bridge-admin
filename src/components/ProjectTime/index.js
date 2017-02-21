@@ -17,7 +17,6 @@ export default class BasicInfo extends React.Component{
   }
   handleClick(){
     const id = this.props.params.id
-    console.log(id);
     const token = localStorage.getItem("token")
     this.props.actions.fetchProjectSchedule(`${API_URL}/admin/project/${id}/schedule?token=${token}`,this.state.schedule)
   }
