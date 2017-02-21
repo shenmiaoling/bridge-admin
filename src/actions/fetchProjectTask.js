@@ -53,7 +53,6 @@ function fetchProjectTaskFailure(err){
   }
 }
 export function fetchProjectTask(api,data,Taskform) {
-  console.log(api)
   return dispatch => {
     dispatch(fetchProjectTaskRequest())
       return fetch(api,{
@@ -64,12 +63,11 @@ export function fetchProjectTask(api,data,Taskform) {
         body: JSON.stringify(data)
       }).then(response => response.json())
         .then(json =>{
-          console.log(json)
           Taskform.reset()
           dispatch(fetchProjectTaskSuccess(json,true))
         }).catch( err => {
-          // localStorage.removeItem("token")
-          // browserHistory.push('/login')
+          localStorage.removeItem("token")
+          browserHistory.push('/login')
           fetchProjectTaskFailure(err,false)
         })
   }

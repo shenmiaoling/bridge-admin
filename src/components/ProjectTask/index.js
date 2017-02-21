@@ -7,12 +7,12 @@ export default class ProjectUI extends React.Component{
 
   constructor(props) {
     super(props);
-    this.state = { part: false,barid:'',completion:false }
+    this.state = { part: [false,false,false],barid:'',completion:false }
     this.handleClick = this.handleClick.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
     this.handleAddButton = this.handleAddButton.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleFinish = this.handleFinish.bind(this)
+    this.handleStatus = this.handleStatus.bind(this)
   }
   handleClick(){
     const id = this.props.params.id
@@ -26,17 +26,18 @@ export default class ProjectUI extends React.Component{
     deleteProjectTask(`${API_URL}/admin/project/schedule/task/${task_id}?token=${token}`,task_id)
   }
   handleAddButton(e){
-    var myPart = document.querySelector('#add-part');
-    var part = myPart.dataset.info
+    var part = e.target.dataset.info
+    var index = e.target.dataset.index
     const { fetchProjectTaskBar } = this.props.actions
     const token = localStorage.getItem("token")
     const id = this.props.params.id
     fetchProjectTaskBar(`${API_URL}/admin/project/${id}/schedule/${part}?token=${token}`)
-    this.setState({
-      part: !this.state.part
-    })
+    const parts = this.state.part
+    parts[index] = !parts[index]
+    this.setState({part: parts})
   }
   handleSubmit(e){
+    console.log(this.props)
     e.preventDefault()
     const { fetchProjectTask } = this.props.actions
     const token = localStorage.getItem("token")
@@ -44,13 +45,12 @@ export default class ProjectUI extends React.Component{
       barid: this.props.projectTask.taskbar._id
     })
     // const id = this.props.projectTask.taskbar._id
-    const id = "58ab82f2c7112c1eeeaace9e"
-    const part = e.target.name
+    const id = "58ab9474c7112c1eeeaaceb2"
     const Taskform = document.getElementById("task-form")
     const data = {txt:document.getElementById("task").value}
     fetchProjectTask(`${API_URL}/admin/project/schedule/${id}/task?token=${token}`,data,Taskform)
   }
-  handleFinish(task_id){
+  handleStatus(task_id){
     const { ChangeProjectTaskStatus } = this.props.actions
     const token = localStorage.getItem("token")
     this.setState({
@@ -58,7 +58,7 @@ export default class ProjectUI extends React.Component{
     },()=>{
       const data = {completion:this.state.completion}
       ChangeProjectTaskStatus(`${API_URL}/admin/project/schedule/task/${task_id}?token=${token}`,data)
-    })    
+    })
   }
   render(){
     const ChangeResult = this.props.projectTask
@@ -69,25 +69,45 @@ export default class ProjectUI extends React.Component{
             <h3 className="basic-info">任务列表</h3>
             <div className="basic-block">
               <label>前端开发:</label>
-              <span className="iconfont icon-task" onClick={this.handleAddButton} id="add-part" data-info="frontEnd"></span>
-              <form onSubmit={this.handleSubmit} style={{"display":this.state.part?"block":"none"}} name="frontEnd" id="task-form">
+              <span className="iconfont icon-task" onClick={this.handleAddButton} id="add-part" data-info="frontEnd" data-index="0"></span>
+              <form onSubmit={this.handleSubmit} style={{"display":this.state.part[0]?"block":"none"}}>
                 <input type="text" id="task"/>
               </form>
               {
                 this.props.projectTask.data.map((item,index)=>{
                   return <div key={index}>
-                    <li onClick={this.handleFinish.bind(this,item._id)} style={{"textDecoration":item.completion?"line-through":"none"}}>{item.txt}  <button onClick={this.handleDelete.bind(this, item._id)}>X</button></li>   
+                    <li onClick={this.handleStatus.bind(this,item._id)} style={{"textDecoration":item.completion?"line-through":"none"}}>{item.txt}  <button onClick={this.handleDelete.bind(this, item._id)}>X</button></li>
                   </div>
                 })
               }
             </div>
             <div className="basic-block">
               <label>后台管理:</label>
-              <span className="iconfont icon-task"></span>
+              <span className="iconfont icon-task" onClick={this.handleAddButton} id="add-part" data-info="backstage" data-index="1"></span>
+              <form onSubmit={this.handleSubmit} style={{"display":this.state.part[1]?"block":"none"}} id="task-form">
+                <input type="text" id="task"/>
+              </form>
+              {
+                this.props.projectTask.data.map((item,index)=>{
+                  return <div key={index}>
+                    <li onClick={this.handleStatus.bind(this,item._id)} style={{"textDecoration":item.completion?"line-through":"none"}}>{item.txt}  <button onClick={this.handleDelete.bind(this, item._id)}>X</button></li>
+                  </div>
+                })
+              }
             </div>
             <div className="basic-block">
               <label>后端开发:</label>
-              <span className="iconfont icon-task"></span>
+              <span className="iconfont icon-task" onClick={this.handleAddButton} id="add-part" data-info="backstage" data-index="2"></span>
+              <form onSubmit={this.handleSubmit} style={{"display":this.state.part[2]?"block":"none"}} id="task-form">
+                <input type="text" id="task"/>
+              </form>
+              {
+                this.props.projectTask.data.map((item,index)=>{
+                  return <div key={index}>
+                    <li onClick={this.handleStatus.bind(this,item._id)} style={{"textDecoration":item.completion?"line-through":"none"}}>{item.txt}  <button onClick={this.handleDelete.bind(this, item._id)}>X</button></li>
+                  </div>
+                })
+              }
             </div>
             <div>
               <button className="cancel">上一步</button>
