@@ -5,7 +5,8 @@ import {fetchLogin} from './fetchLogin'
 import {fetchProject} from './fetchProject'
 import {fetchProjectImages} from './fetchProjectImages'
 import {deleteProjectUI} from './deleteProjectUI'
-import {fetchProjectTask,fetchProjectTaskBar,ChangeProjectTaskStatus,deleteProjectTask} from './fetchProjectTask'
+import {fetchProjectTask,fetchProjectTaskBar,ChangeProjectTaskStatus,deleteProjectTask,
+  fetchDeveloper} from './fetchProjectTask'
 import {fetchProjectDocument} from './fetchProjectDocument'
 
 export {
@@ -18,6 +19,7 @@ export {
   fetchProjectTask,
   ChangeProjectTaskStatus,
   deleteProjectTask,
+  fetchDeveloper,
   fetchProjectDocument
   }
 

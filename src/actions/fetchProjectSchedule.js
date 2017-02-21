@@ -34,7 +34,6 @@ export function fetchProjectSchedule(api,data) {
         })
       }).then(response => response.json())
         .then(json =>{
-          console.log(json)
             dispatch(fetchProjectScheduleSuccess(json,true))
             browserHistory.push(`/project/${json.projectId}/task`)
         }).catch( err => {

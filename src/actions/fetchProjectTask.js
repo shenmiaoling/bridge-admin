@@ -25,7 +25,6 @@ export function fetchProjectTaskBar(api) {
         method:'POST',
       }).then(response => response.json())
         .then(json =>{
-          console.log(json);
           dispatch(fetchProjectTaskBarSuccess(json,true))
         }).catch( err => {
           localStorage.removeItem("token")
@@ -102,7 +101,7 @@ export function ChangeProjectTaskStatus(api,data) {
         body: JSON.stringify(data)
       }).then(response => response.json())
         .then(json =>{
-          console.log(json)
+          // console.log(json)
           dispatch(ChangeProjectTaskStatusSuccess(json,true))
         }).catch( err => {
           ChangeProjectTaskStatusFailure(err,false)
@@ -138,6 +137,39 @@ export function deleteProjectTask(api,id) {
             dispatch(deleteProjectTaskSuccess(id,true))
         }).catch( err => {
           deleteProjectTaskFailure(err,false)
+          localStorage.removeItem("token")
+          browserHistory.push('/login')
+        })
+  }
+}
+function fetchDeveloperRequest(){
+  return {
+    type: 'FETCH_DEVELOPER_REQUEST'
+  }
+}
+function fetchDeveloperSuccess(json,end){
+  return {
+    type: 'FETCH_DEVELOPER_SUCCESS',
+    Developer: json,
+    end: end
+  }
+}
+function fetchDeveloperFailure(err){
+  return {
+    type:'FETCH_DEVELOPER_FAILURE',
+    err: err
+  }
+}
+export function fetchDeveloper(api) {
+  return dispatch => {
+    dispatch(fetchDeveloperRequest())
+      return fetch(api,{
+        method:'GET'
+      }).then(response => response.json())
+        .then(json =>{
+            dispatch(fetchDeveloperSuccess(json,true))
+        }).catch( err => {
+          fetchDeveloperFailure(err,false)
           localStorage.removeItem("token")
           browserHistory.push('/login')
         })
