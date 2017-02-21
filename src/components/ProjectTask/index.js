@@ -16,12 +16,13 @@ export default class ProjectUI extends React.Component{
   }
   handleClick(){
     const id = this.props.params.id
-    this.props.router.push(`/project/${id}/schedule`)
+    this.props.router.push(`/project/${id}/document`)
   }
 
   handleDelete(task_id){
     const { deleteProjectTask } = this.props.actions
     const token = localStorage.getItem("token")
+    console.log(task_id)
     deleteProjectTask(`${API_URL}/admin/project/schedule/task/${task_id}?token=${token}`,task_id)
   }
   handleAddButton(e){
@@ -43,7 +44,7 @@ export default class ProjectUI extends React.Component{
       barid: this.props.projectTask.taskbar._id
     })
     // const id = this.props.projectTask.taskbar._id
-    const id = "58ab106cc7112c1eeeaace54"
+    const id = "58ab82f2c7112c1eeeaace9e"
     const part = e.target.name
     const Taskform = document.getElementById("task-form")
     const data = {txt:document.getElementById("task").value}
@@ -52,8 +53,6 @@ export default class ProjectUI extends React.Component{
   handleFinish(task_id){
     const { ChangeProjectTaskStatus } = this.props.actions
     const token = localStorage.getItem("token")
-    // const id = this.props.projectTask.taskbar._id
-    // const id = "58ab106cc7112c1eeeaace54"
     this.setState({
       completion: !this.state.completion
     },()=>{
@@ -77,8 +76,7 @@ export default class ProjectUI extends React.Component{
               {
                 this.props.projectTask.data.map((item,index)=>{
                   return <div key={index}>
-                    <li onClick={this.handleFinish.bind(this,item._id)} style={{"textDecoration":item.completion?"line-through":"none"}}>{item.txt}  <button onClick={this.handleDelete.bind(thid, item._id)}>X</button></li>
-                    
+                    <li onClick={this.handleFinish.bind(this,item._id)} style={{"textDecoration":item.completion?"line-through":"none"}}>{item.txt}  <button onClick={this.handleDelete.bind(this, item._id)}>X</button></li>   
                   </div>
                 })
               }
