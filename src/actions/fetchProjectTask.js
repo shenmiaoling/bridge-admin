@@ -38,11 +38,25 @@ function fetchProjectTaskRequest(){
     type: 'FETCH_PROJECT_TASK_REQUEST'
   }
 }
-function fetchProjectTaskSuccess(json,end){
-  return {
-    type: 'FETCH_PROJECT_TASK_SUCCESS',
-    Task: json,
-    end: end
+function fetchProjectTaskSuccess(json,taskbar,end){
+  if (taskbar=="frontEnd") {
+    return {
+      type: 'FETCH_PROJECT_TASK_SUCCESS',
+      frontEndTask: json,
+      end: end
+    }
+  }else if(taskbar=="backStage"){
+    return {
+      type: 'FETCH_PROJECT_TASK_SUCCESS',
+      backStageTask: json,
+      end: end
+    }
+  }else{
+    return {
+      type: 'FETCH_PROJECT_TASK_SUCCESS',
+      backEndTask: json,
+      end: end
+    }
   }
 }
 function fetchProjectTaskFailure(err){
@@ -51,7 +65,8 @@ function fetchProjectTaskFailure(err){
     err: err
   }
 }
-export function fetchProjectTask(api,data,Taskform) {
+export function fetchProjectTask(api,data,Taskform,taskbar) {
+  console.log(taskbar)
   return dispatch => {
     dispatch(fetchProjectTaskRequest())
       return fetch(api,{
@@ -64,10 +79,10 @@ export function fetchProjectTask(api,data,Taskform) {
         .then(json =>{
           console.log(json)
           Taskform.reset()
-          dispatch(fetchProjectTaskSuccess(json,true))
+          dispatch(fetchProjectTaskSuccess(json,taskbar,true))
         }).catch( err => {
-          localStorage.removeItem("token")
-          browserHistory.push('/login')
+          // localStorage.removeItem("token")
+          // browserHistory.push('/login')
           fetchProjectTaskFailure(err,false)
         })
   }

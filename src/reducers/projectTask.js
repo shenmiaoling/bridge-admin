@@ -1,11 +1,12 @@
 const InitialState = {
   status:'',
-  data:[],
+  frontEndTask:[],
+  backStageTask:[],
+  backEndTask:[],
   taskbar:{},
   ChangeResult:'',
   AddResult:'',
   errMsg: '',
-  backStage:[],
   Developer:[],
   end: false
 }
@@ -35,7 +36,10 @@ export default function projectTask (state = InitialState, action) {
     case 'FETCH_PROJECT_TASK_REQUEST':
       return Object.assign({},state,{status: 'fetch_start'})
     case 'FETCH_PROJECT_TASK_SUCCESS':
-      return Object.assign({},state,{status: 'fetch_success',data:state.data.concat(action.Task),backStage:state.backStage.concat(action.Task),end: action.end})
+      return Object.assign({},state,{status: 'fetch_success',frontEndTask:state.frontEndTask.concat(action.frontEndTask),
+        backStageTask:state.backStageTask.concat(action.backStageTask),
+        backEndTask:state.backEndTask.concat(action.backEndTask),
+        end: action.end})
     case 'FETCH_PROJECT_TASK_FAILURE':
       return Object.assign({},state,{status: 'fetch_failure',errMsg: action.err})
     case 'DELETE_PROJECT_TASK_REQUEST':
