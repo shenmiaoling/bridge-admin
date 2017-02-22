@@ -45,20 +45,22 @@ export default class ProjectUI extends React.Component{
   }
   handleSubmit(e){
     e.preventDefault()
+    const value = document.querySelector('#task1').value ||document.querySelector('#task2').value||document.querySelector('#task3').value
+        console.log(value)
     const { fetchProjectTask } = this.props.actions
     this.setState({
       barid: this.props.projectTask.taskbar._id
     })
+    
     // const id = this.props.projectTask.taskbar._id
-    const id = "58ab9474c7112c1eeeaaceb2"
+    const id = "58ac61c0755e4e75dd5351ff"
     const taskForm = document.getElementById("task-form")
-    const data = {txt:document.getElementById("task").value}
+    const data = {txt:value}
     fetchProjectTask(`${API_URL}/admin/project/schedule/${id}/task?token=${token}`,data,taskForm)
   }
   handleStatus(item){
     const { ChangeProjectTaskStatus } = this.props.actions
     const data = {completion:!item.completion}
-    console.log(item);
     ChangeProjectTaskStatus(`${API_URL}/admin/project/schedule/task/${item._id}?token=${token}`,data)
   }
   handleDeveloper(){
@@ -84,7 +86,7 @@ export default class ProjectUI extends React.Component{
               <span className="iconfont icon-task" onClick={this.handleAddButton} id="add-part" data-info="frontEnd" data-index="0"></span>
               <span className="iconfont icon-avatar" onClick={this.handleDeveloper}></span>
               <form onSubmit={this.handleSubmit} style={{"display":this.state.part[0]?"block":"none"}} id="task-form">
-                <input type="text" id="task"/>
+                <input type="text" id="task1"/>
               </form>
               {
                 this.props.projectTask.data.map((item,index)=>{
@@ -108,7 +110,7 @@ export default class ProjectUI extends React.Component{
               <label>后台管理:</label>
               <span className="iconfont icon-task" onClick={this.handleAddButton} id="add-part" data-info="backstage" data-index="1"></span>
               <form onSubmit={this.handleSubmit} style={{"display":this.state.part[1]?"block":"none"}} id="task-form">
-                <input type="text" id="task"/>
+                <input type="text" id="task2" onSubmit={this.handleSubmit}/>
               </form>
               {
                 this.props.projectTask.backStage.map((item,index)=>{
@@ -122,7 +124,7 @@ export default class ProjectUI extends React.Component{
               <label>后端开发:</label>
               <span className="iconfont icon-task" onClick={this.handleAddButton} id="add-part" data-info="backstage" data-index="2"></span>
               <form onSubmit={this.handleSubmit} style={{"display":this.state.part[2]?"block":"none"}} id="task-form">
-                <input type="text" id="task"/>
+                <input type="text" id="task3"/>
               </form>
               {
                 this.props.projectTask.data.map((item,index)=>{

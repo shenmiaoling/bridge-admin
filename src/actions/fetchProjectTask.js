@@ -62,6 +62,7 @@ export function fetchProjectTask(api,data,Taskform) {
         body: JSON.stringify(data)
       }).then(response => response.json())
         .then(json =>{
+          console.log(json)
           Taskform.reset()
           dispatch(fetchProjectTaskSuccess(json,true))
         }).catch( err => {
@@ -90,7 +91,6 @@ function ChangeProjectTaskStatusFailure(err){
   }
 }
 export function ChangeProjectTaskStatus(api,data) {
-  console.log(data)
   return dispatch => {
     dispatch(ChangeProjectTaskStatusRequest())
       return fetch(api,{
@@ -101,7 +101,6 @@ export function ChangeProjectTaskStatus(api,data) {
         body: JSON.stringify(data)
       }).then(response => response.json())
         .then(json =>{
-          // console.log(json)
           dispatch(ChangeProjectTaskStatusSuccess(json,true))
         }).catch( err => {
           ChangeProjectTaskStatusFailure(err,false)
